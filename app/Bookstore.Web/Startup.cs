@@ -1,22 +1,35 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Bookstore.Web
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<Startup> _logger;
+
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        {
+            _configuration = configuration;
+            _logger = logger;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             // Add services to the container.
-            // For example: services.AddControllersWithViews();
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
-            LoggingSetup.ConfigureLogging();
+            // Use the injected logger instead of LoggingSetup
+            _logger.LogInformation("Configuring the application");
 
-            ConfigurationSetup.ConfigureConfiguration();
+            // Use the injected configuration instead of ConfigurationSetup
+            var someConfig = _configuration["SomeKey"];
 
             // DependencyInjection is now handled in ConfigureServices
 
