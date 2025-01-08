@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Bookstore.Common; // Add this line to import the Bookstore.Common namespace
 
 namespace Bookstore.Web
 {
@@ -15,10 +14,8 @@ namespace Bookstore.Web
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
-            // Assuming LoggingSetup is a static class, if it's not, you may need to instantiate it
             LoggingSetup.ConfigureLogging();
 
-            // Assuming ConfigurationSetup is a static class, if it's not, you may need to instantiate it
             ConfigurationSetup.ConfigureConfiguration();
 
             // DependencyInjection is now handled in ConfigureServices
